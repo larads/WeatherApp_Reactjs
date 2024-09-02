@@ -5,11 +5,11 @@ import { IoMdSunny, IoMdRainy, IoMdCloudy, IoMdSnow, IoMdThunderstorm } from 're
 
 import { api } from '../api/axios'
 import { Card } from '../components/card'
+import { Button } from '../components/button'
 import { Loader } from '../components/loader'
 import { CardTop } from '../components/cardTop'
 import { CardBody } from '../components/cardBody'
 import { CardBottom } from '../components/cardBottom'
-
 
 const APIKey = import.meta.env.VITE_API_KEY
 
@@ -40,10 +40,6 @@ interface WeatherAPIData {
 
 
 export function App() {
-    console.log(import.meta.env.VITE_API_KEY);
-
-
-
     const [data, setData] = useState<WeatherAPIData | null>(null)
     const [location, setLocation] = useState('São paulo')
 
@@ -98,31 +94,43 @@ export function App() {
 
 
     return (
-        <div className='w-full h-screen bg-gradientBg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center px-4 lg:px-0'>
-            <form></form>
-            form
+        <div className='w-full h-screen bg-gradientBg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center px-4 lg:px-0 gap-8'>
+            <form className='h-16  bg-black/30 w-full max-w-md rounded-full backdrop-blur-2xl'>
+                <div className='h-full relative flex items-center justify-between p-2'>
+
+                    <input
+                        type="text"
+                        placeholder='Search by city or country'
+                        className='flex-1 bg-transparent outline-none placeholder:text-white text-white font-light pl-6 h-full'
+                    />
+
+                    <Button>
+
+                    </Button>
+                </div>
+            </form>
+
 
             <Card>
-                <div>
-                    <CardTop
-                        icon={icon}
-                        countryName={data.name}
-                        countryAcronym={data.sys.country}
-                    />
+                <CardTop
+                    icon={icon}
+                    countryName={data.name}
+                    countryAcronym={data.sys.country}
+                />
 
-                    <CardBody
-                        temp={temperatureInCelcius}
-                        weatherDescription={data.weather[0].description}
-                    />
+                <CardBody
+                    temp={temperatureInCelcius}
+                    weatherDescription={data.weather[0].description}
+                />
 
-                    <CardBottom
-                        visibility={parsedVisibility}
-                        feels_like={formatedFeelsLikeInCelcius}
-                        humidity={data.main.humidity}
-                        wind={data.wind.speed}
-                    />
-                </div>
+                <CardBottom
+                    visibility={parsedVisibility}
+                    feels_like={formatedFeelsLikeInCelcius}
+                    humidity={data.main.humidity}
+                    wind={data.wind.speed}
+                />
             </Card>
         </div>
+
     )
 }

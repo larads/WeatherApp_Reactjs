@@ -37,9 +37,6 @@ interface WeatherAPIData {
     }
 }
 
-
-
-
 export function App() {
     const [data, setData] = useState<WeatherAPIData | null>(null)
     const [location, setLocation] = useState('São paulo')
